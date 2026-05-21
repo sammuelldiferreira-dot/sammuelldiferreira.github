@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Recursos Multimídia — Cap. 4 / Ativ. 4</title>
+</head>
+
+<body>
+
+    <main>
+
+        <header>
+            <h1>Recursos Multimídia</h1>
+        </header>
+
+        <figure>
+
+            <video controls width="800" height="450" poster="aula.jpg">
+
+                <source src="video.mp4" type="video/mp4">
+                <source src="video.webm" type="video/webm">
+
+                <track
+                    src="subtitles-pt.vtt"
+                    kind="subtitles"
+                    srclang="pt"
+                    label="Português"
+                    default>
+
+                Seu navegador não suporta vídeo.
+                <a href="video.mp4">Download do vídeo</a>
+
+            </video>
+
+            <figcaption>
+                Vídeo educacional sobre HTML5.
+            </figcaption>
+
+        </figure>
+
+        <figure>
+
+            <audio controls preload="metadata">
+
+                <source src="podcast.mp3" type="audio/mpeg">
+                <source src="podcast.ogg" type="audio/ogg">
+
+                Seu navegador não suporta áudio.
+                <a href="podcast.mp3">Download do áudio</a>
+
+            </audio>
+
+            <figcaption>
+                Episódio em áudio.
+                <a href="transcricao.html">Transcrição</a>
+            </figcaption>
+
+        </figure>
+
+        <figure>
+
+            <iframe
+                width="800"
+                height="450"
+                src="https://www.youtube.com/embed/VIDEO_ID"
+                title="Vídeo educacional"
+                loading="lazy"
+                allowfullscreen>
+            </iframe>
+
+            <figcaption>
+                Vídeo do YouTube.
+            </figcaption>
+
+        </figure>
+
+        <figure>
+
+            <picture>
+
+                <source
+                    media="(min-width: 768px)"
+                    srcset="banner-wide.jpg">
+
+                <img
+                    src="banner-mobile.jpg"
+                    alt="Banner do curso"
+                    width="800"
+                    height="450">
+
+            </picture>
+
+            <figcaption>
+                Imagem responsiva.
+            </figcaption>
+
+        </figure>
+
+        <footer>
+            <p>Nome: Samuel Ferreira</p>
+            <p>Matrícula: 911C</p>
+            <p>Data: 21/05/2026</p>
+        </footer>
+
+    </main>
+    <p>
+        <a href="file:///C:/Users/Samuel%20Cireno/Documents/Cap%C3%ADtulo-4-Tabelas-Listas-e-M%C3%ADdia.html">← Voltar à página principal</a>
+    </p>
+</body>
+</html>
