@@ -1,0 +1,257 @@
+/* =====================================================================
+   Atividade Prática CSS 02 — Refatoração de Seletores e Unidades CSS
+   Nome do Aluno: [Seu Nome Aqui]
+   ===================================================================== */
+
+/* 
+   !!! warning "Reflexão escrita sobre Unidades Flexíveis"
+   ---------------------------------------------------------------------
+   MINHA REFLEXÃO: Professor, fazendo os testes de zoom com Ctrl+ e Ctrl-, 
+   percebi que usar 'rem' e 'em' é infinitamente melhor para a acessibilidade 
+   do que larguras fixas em pixels (px). Quando usamos pixels, o layout fica 
+   rígido e o texto não escala direito com as preferências do usuário, 
+   podendo quebrar a página ou criar barras de rolagem horizontais horríveis.
+   
+   O 'rem' é a unidade mais segura porque ele usa o tamanho base da raiz (o html), 
+   o que mantém a proporção do site inteira alinhada. O 'em' é legal, mas como ele 
+   depende do elemento-pai direto, se a gente abusar dele em estruturas aninhadas 
+   (como listas dentro de listas), as fontes começam a crescer ou diminuir em efeito 
+   cascata, o que vira uma bagunça. Já a porcentagem (%) é a escolha ideal para 
+   larguras (width) de blocos e seções, porque ela faz com que as caixas ocupem 
+   o espaço disponível da tela de forma fluida, deixando tudo responsivo.
+*/
+
+/* ---------- Base ---------- */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  color: #333333;
+  background-color: #f5f5f5;
+  font-size: 100%; /* Base padrão do navegador (normalmente 16px) */
+}
+
+/* ---------- Cabeçalho (Bloco 2 - Filho Direto >) ---------- */
+.cabecalho {
+  background-color: #1565c0;
+  padding: 2rem; /* 32px / 16px = 2rem */
+}
+
+/* 
+   !!! note "Reflexão escrita - Descendente vs Filho Direto"
+   ---------------------------------------------------------------------
+   DIFERENÇA PRÁTICA: O seletor descendente (com espaço, ex: '.cabecalho h1') 
+   procura por QUALQUER h1 que esteja lá dentro, não importa o nível de aninhamento. 
+   Já o seletor de filho direto (com '>', ex: '.cabecalho > h1') é muito mais restrito: 
+   ele só vai aplicar o estilo se o h1 for um filho imediato da tag '.cabecalho'. 
+   Usar o '>' evita heranças acidentais e deixa o controle da especificidade na nossa mão.
+*/
+.cabecalho > h1 {
+  color: #ffffff;
+  font-size: 2rem; /* 32px */
+  margin: 0;
+}
+
+.cabecalho > .subtitulo {
+  color: #bbdefb;
+  font-size: 1rem; /* 16px */
+}
+
+/* ---------- Menu de navegação ---------- */
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0; /* 16px */
+}
+
+.menu li {
+  display: inline-block;
+}
+
+/* Bloco 3: Exclusão com :not() para dar margem a todos os itens, exceto ao último */
+.menu li:not(:last-child) {
+  margin-right: 1.5rem; /* 24px */
+}
+
+.menu a {
+  color: #ffffff;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+/* Bloco 3: Estado de interação (:hover e :focus) para acessibilidade */
+.menu a:hover,
+.menu a:focus {
+  color: #bbdefb;
+  text-decoration: underline;
+}
+
+/* ---------- Seções ---------- */
+.secao {
+  padding: 2rem; /* 32px */
+  max-width: 60rem; /* 960px */
+}
+
+/* Bloco 2: Agrupamento de regras repetidas para unificar h1, h2 e h3 */
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+h2 {
+  color: #1565c0;
+  font-size: 1.5rem; /* 24px */
+}
+
+h3 {
+  color: #0d47a1;
+  font-size: 1.25rem; /* 20px */
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5rem; /* 24px */
+}
+
+/* Bloco 4: Pseudo-elemento ::before para criar um marcador visual no destaque */
+.destaque {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #b71c1c;
+}
+.destaque::before {
+  content: "⚠️ ";
+}
+
+/* Bloco 2: Irmão geral (~) para formatar parágrafos que sucedem o .destaque */
+.destaque ~ p {
+  color: #555555;
+  font-style: italic;
+}
+
+/* ---------- Grade de trilhas (Bloco 3 - Pseudo-classes) ---------- */
+.cartao {
+  display: inline-block;
+  width: 17.5rem; /* 280px */
+  vertical-align: top;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+  padding: 1rem; /* 16px */
+  margin: 0.5rem; /* 8px */
+}
+
+/* Bloco 3: Alternância de fundo com :nth-child() (efeito zebra nos cartões) */
+/* 
+   !!! note "Reflexão escrita - Uso do :nth-child()"
+   ---------------------------------------------------------------------
+   POR QUE USAR?: O ':nth-child()' é genial porque ele cria padrões visuais de 
+   forma totalmente dinâmica e automática com base no índice dos elementos na árvore do HTML. 
+   Isso poupa a gente de ter que ficar criando e adicionando classes estáticas (tipo 'card-par' 
+   ou 'card-impar') manualmente no HTML toda vez que surgir um conteúdo novo.
+*/
+.cartao:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.cartao:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+/* Bloco 3: Estado de interação (:hover) nos botões e cartões */
+.cartao:hover {
+  border-color: #1565c0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.botao {
+  display: inline-block;
+  background-color: #1565c0;
+  color: #ffffff;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.5rem 1rem; /* 8px 16px */
+  margin-top: 0.5rem;
+}
+
+.botao:hover,
+.botao:focus {
+  background-color: #0d47a1;
+}
+
+/* ---------- Lista de programação ---------- */
+.lista-dias {
+  font-size: 1rem;
+  line-height: 1.75rem; /* 28px */
+}
+
+/* Bloco 3: Posição na irmandade (:first-child e :last-child) */
+.lista-dias > li:first-child {
+  font-weight: bold;
+  color: #1565c0;
+}
+
+.lista-dias > li:last-child {
+  border-bottom: 2px solid #1565c0;
+  padding-bottom: 0.5rem;
+}
+
+/* ---------- Formulário ---------- */
+.formulario {
+  max-width: 30rem; /* 480px */
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+/* Bloco 2: Agrupamento entre input e textarea */
+/* Bloco 4: Seletores de atributo para focar nos campos específicos */
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario input[type="tel"],
+.formulario input[type="password"],
+.formulario textarea {
+  display: block;
+  width: 100%; /* Deixa o campo fluido e responsivo */
+  max-width: 20rem; /* Limita ao tamanho original próximo de 320px */
+  font-size: 1rem;
+  padding: 0.5rem; /* 8px */
+  margin-top: 0.25rem; /* 4px */
+  border: 1px solid #999999;
+  box-sizing: border-box; /* 
+    !!! note "Aviso sobre box-sizing"
+    Crucial aqui para o 'width: 100%' não quebrar a largura por causa do padding!
+  */
+}
+
+/* Bloco 3: Estado de interação (:focus) com feedback visual claro para inputs */
+.formulario input:focus,
+.formulario textarea:focus {
+  border-color: #1565c0;
+  outline: none;
+  box-shadow: 0 0 5px rgba(21, 101, 192, 0.5);
+}
+
+.formulario button {
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #1565c0;
+  padding: 0.5rem 1.5rem; /* 8px 24px */
+  margin-top: 1rem;
+  border: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.formulario button:hover,
+.formulario button:focus {
+  background-color: #0d47a1;
+}
+
+/* ---------- Rodapé ---------- */
+.rodape {
+  background-color: #263238;
+  color: #cfd8dc;
+  padding: 1.5rem; /* 24px */
+  font-size: 0.875rem; /* 14px / 16px = 0.875rem */
+}
